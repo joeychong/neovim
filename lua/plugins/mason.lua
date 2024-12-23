@@ -17,7 +17,7 @@ return {
             --on_attach = function(client, bufnr)
               -- Keybindings or custom LSP behavior can go here
             --end,
-            --capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add autocomplete support if using nvim-cmp
+            capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add autocomplete support if using nvim-cmp
           })
         end,
       })
