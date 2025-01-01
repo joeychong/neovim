@@ -11,3 +11,17 @@ vim.opt.number = true
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript",
+  "js=javascript",
+  "json=javascript",
+  "html",
+  "css",
+  "bash=sh",
+  "python",
+  "lua",
+  "yaml",
+}
+
+vim.opt.clipboard = "unnamedplus"
