@@ -26,7 +26,14 @@ vim.g.markdown_fenced_languages = {
   "python",
   "lua",
   "yaml",
+  "toml"
 }
 
 -- enable copy and paste from native clipboard
 vim.opt.clipboard = "unnamedplus"
+
+-- enable load local neovim config
+local local_config = vim.fn.getcwd() .. '/.nvim.lua'
+if vim.loop.fs_stat(local_config) then
+  vim.cmd('luafile ' .. local_config)
+end

@@ -20,5 +20,19 @@ return {
         end,
       },
     },
+    filesystem = {
+      filtered_items = {
+        --visible = true, -- Show hidden files
+        hide_dotfiles = false, -- Do not hide dotfiles (e.g., .gitignore)
+        --hide_gitignored = false, -- Show gitignored files
+        hide_by_name = {
+          "node_modules", -- Ignore this folder
+          ".git",
+        },
+      },
+      follow_current_file = {
+        enabled = true,
+      },
+    },
   }
 }

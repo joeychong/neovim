@@ -21,6 +21,10 @@ return {
             -- e.g. git_{create, delete, ...}_branch for the git_branches picker
             ["<C-h>"] = "which_key"
           }
+        },
+        file_ignore_patterns = {
+          "node_modules",
+          "%.git/"
         }
       },
       pickers = {
@@ -32,6 +36,9 @@ return {
 
         -- Now the picker_config_key will be applied every time you call this
         -- builtin picker
+        find_files = {
+          hidden = true
+        }
       },
       extensions = {
         -- Your extension configuration goes here:
