@@ -19,6 +19,10 @@ return {
 
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+      spec = {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>f', group = '[F]uzzy Search' }
+      }
     },
     --[[keys = {
       {
