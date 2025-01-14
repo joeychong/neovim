@@ -8,6 +8,8 @@ vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 -- vim.g.mapleader = " "
 vim.opt.number = true
+-- Do not show mode again as it already show at status bar
+vim.opt.showmode = false
 -- vim.opt.relativenumber = true
 
 -- custom key mapping
