@@ -31,6 +31,9 @@ vim.g.markdown_fenced_languages = {
   "toml"
 }
 
+-- install using command below to enable special feature
+-- sudo apt install ripgrep fd-find xclip xsel
+
 -- enable copy and paste from native clipboard
 vim.opt.clipboard = "unnamedplus"
 
