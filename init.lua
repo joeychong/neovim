@@ -39,3 +39,8 @@ local local_config = vim.fn.getcwd() .. '/.nvim.lua'
 if vim.loop.fs_stat(local_config) then
   vim.cmd('luafile ' .. local_config)
 end
+
+-- set color scheme
+-- vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme catppuccin]])
+
