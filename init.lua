@@ -10,12 +10,13 @@ vim.cmd("set shiftwidth=2")
 vim.opt.number = true
 -- Do not show mode again as it already show at status bar
 vim.opt.showmode = false
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- custom key mapping
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
 
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
