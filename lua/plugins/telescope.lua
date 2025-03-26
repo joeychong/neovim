@@ -22,6 +22,23 @@ return {
             ["<C-h>"] = "which_key"
           }
         },
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--no-ignore-vcs',       -- Improve speed with `.gitignore`
+          '--max-columns=200',     -- Skip long lines
+          '--max-filesize=1M',     -- Ignore large files
+          '--hidden',              -- Search hidden files
+
+          '--glob=!.git/*',        -- Ignore `.git` even with `--hidden`
+
+          '--glob=!node_modules/*' -- Ignore `node_modules`
+        },
         file_ignore_patterns = {
           "node_modules",
           "%.git/"
@@ -37,7 +54,8 @@ return {
         -- Now the picker_config_key will be applied every time you call this
         -- builtin picker
         find_files = {
-          hidden = true
+          hidden = true,
+          find_command = { 'fdfind', '--type', 'f', '--hidden', '--exclude', '.git', '--exclude', 'node_modules' }
         }
       },
       extensions = {
@@ -67,7 +85,12 @@ return {
           --      do the following
           --   codeactions = false,
           -- }
-        },--]] fzf = {}
+        },--]] fzf = {
+          fuzzy = true,            -- Enables fuzzy matching
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case" -- Lowercase = case-insensitive
+        }
       }
     }
   }, {
