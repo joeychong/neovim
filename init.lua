@@ -17,6 +17,11 @@ vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cb', ':bd<CR>', { desc = 'Close buffer', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>ce', function()
+  vim.diagnostic.open_float(nil, { border = "rounded"})
+end, { desc = 'Show diagnostic', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>fd', ':Telescope diagnostics<CR>', { desc = 'Find diagnostics', noremap = true, silent = true})
 
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
