@@ -10,7 +10,7 @@ return {
       automatic_installation = true,
     },
     init = function()
-      require('mason-lspconfig').setup_handlers({
+      require('mason-lspconfig').setup({
         -- Default handler for all installed servers
         function(server_name)
           require('lspconfig')[server_name].setup({
