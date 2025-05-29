@@ -9,7 +9,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'ts_ls', 'volar' },
+        ensure_installed = { 'lua_ls', 'ts_ls', 'vue_ls' },
         automatic_installation = true,
         -- Default handler for all installed servers
         handlers = {
@@ -40,7 +40,7 @@ return {
       local vue_typescript_plugin_path = vim.fn.stdpath('data')
         .. '/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
       vim.lsp.config('lua_ls', {})
-      vim.lsp.config('volar', {})
+      vim.lsp.config('vue_ls', {})
       vim.lsp.config('ts_ls', {
         init_options = {
           plugins = {
