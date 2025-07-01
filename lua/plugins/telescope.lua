@@ -55,7 +55,7 @@ return {
         -- builtin picker
         find_files = {
           hidden = true,
-          find_command = { 'fdfind', '--type', 'f', '--hidden', '--exclude', '.git', '--exclude', 'node_modules' }
+          find_command = { 'fd', '--type', 'f', '--hidden', '--exclude', '.git', '--exclude', 'node_modules' }
         }
       },
       extensions = {
