@@ -59,4 +59,16 @@ end
 
 -- set color scheme
 -- vim.cmd([[colorscheme tokyonight]])
-vim.cmd([[colorscheme catppuccin]])
+-- vim.cmd([[colorscheme catppuccin]])
+
+require("bluloco").setup({
+  style = "dark",               -- "auto" | "dark" | "light"
+  transparent = false,
+  italics = true,
+  terminal = vim.fn.has("gui_running") == 1, -- bluoco colors are enabled in gui terminals per default.
+  guicursor = true,
+  rainbow_headings = false,     -- if you want different colored headings for each heading level
+})
+
+vim.opt.termguicolors = true
+vim.cmd('colorscheme bluloco')
