@@ -22,6 +22,7 @@ vim.keymap.set('n', '<leader>ce', function()
   vim.diagnostic.open_float(nil, { border = "rounded"})
 end, { desc = 'Show diagnostic', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>fd', ':Telescope diagnostics<CR>', { desc = 'Find diagnostics', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
 
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
