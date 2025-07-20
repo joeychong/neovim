@@ -11,7 +11,8 @@ return {
       -- refer to the configuration section below
       spec = {
         { '<leader>c', group = '[C]ode' },
-        { '<leader>f', group = '[F]uzzy Search' }
+        { '<leader>f', group = '[F]uzzy Search' },
+        { '<leader>t', group = '[T]oogle' }
       }
     },
     --[[keys = {
