@@ -71,6 +71,7 @@ end, { desc = "Toggle diagnostic", noremap = true, silent = true})
 
 -- set color scheme
 -- vim.cmd([[colorscheme tokyonight]])
+-- vim.cmd([[colorscheme tokyonight-storm]])
 -- vim.cmd([[colorscheme catppuccin]])
 
 require("bluloco").setup({
