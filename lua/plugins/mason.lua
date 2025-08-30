@@ -9,7 +9,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'ts_ls', 'vue_ls' },
+        ensure_installed = { 'lua_ls', 'vue_ls' }, -- 'ts_ls', 
         automatic_installation = true,
         -- Default handler for all installed servers
         handlers = {
