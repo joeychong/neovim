@@ -19,6 +19,7 @@ vim.opt.relativenumber = true
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-a>', '^', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>tr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cb', ':bd<CR>', { desc = 'Close buffer', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
@@ -30,6 +31,16 @@ vim.keymap.set("n", '<leader>lr', function()
   vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
   vim.cmd("edit")
 end, { desc = "LSP Restart for current buffer" })
+vim.keymap.set({'n', 'v', 'o'}, '<C-\\>', '%', {
+  noremap = true,
+  silent = true,
+  desc = "Jump between matching pairs"
+})
+vim.keymap.set('i', '<C-\\>', '<Esc>%i', {
+  noremap = true,
+  silent = true,
+  desc = "Jump between matching pairs"
+})
 
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
