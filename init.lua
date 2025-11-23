@@ -44,7 +44,14 @@ vim.keymap.set('i', '<C-\\>', '<Esc>%i', {
   silent = true,
   desc = "Jump between matching pairs"
 })
-
+vim.keymap.set("n", "<leader>ts", function()
+  vim.o.ignorecase = not vim.o.ignorecase
+  print("Case sensitive search:", vim.o.ignorecase and "OFF" or "ON")
+end, { desc = "Toggle case sensitive search" })
+vim.keymap.set("n", "<leader>tw", function()
+  vim.g.codeium_enabled = not vim.g.codeium_enabled
+  print("Winsurf :", vim.o.codeium_enabled and "OFF" or "ON")
+end, { desc = "Toggle Winsurf" })
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
@@ -86,3 +93,5 @@ end, { desc = "Toggle diagnostic", noremap = true, silent = true})
 -- set color scheme
 -- vim.cmd([[colorscheme tokyonight]])
 vim.cmd([[colorscheme catppuccin]])
+-- vim.cmd([[colorscheme carbonfox]])
+-- vim.cmd([[colorscheme bluloco]])
