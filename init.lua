@@ -1,6 +1,13 @@
 -- load lazy vim
 require("config.lazy")
 
+-- load my plugin
+local tasks = require("task-runner")
+tasks.setup({
+  mode = 'show_list'
+})
+
+
 -- set vim behavior
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
