@@ -175,22 +175,26 @@ function M.setup(opts)
     end
     local items = {}
 
-    for i, item in ipairs(data) do
-      items[i] = item.name
-    end
 
     local callback = function(index , _)
       local cmd = data[index].command
-      vim.notify('Selected ' .. index)
-      --vim.fn.jobstart(cmd, { detach = true })
-      local output = vim.fn.system(cmd)
-      print(output)
+      -- vim.notify('Selected ' .. index)
+      -- vim.fn.jobstart(cmd, { detach = true })
+      -- local output = vim.fn.system(cmd)
+      -- print(output)
+      vim.cmd("!" .. cmd)
     end
 
     -- show_list(items, function(index , _)
     if (M.config.mode == 'popup_menu') then
+      for i, item in ipairs(data) do
+        items[i] = item.name
+      end
       popup_menu(items, callback)
     else
+      for i, item in ipairs(data) do
+        items[i] = i .. ". " .. item.name
+      end
       show_list(items, callback)
     end
   end, {})
