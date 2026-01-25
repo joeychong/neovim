@@ -62,13 +62,22 @@ return {
         -- capabilities = require('cmp_nvim_lsp').default_capabilities(),
         single_file_support = false,
       }) --]]
+      local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
       local vue_plugin = {
         name = '@vue/typescript-plugin',
         location = vue_typescript_plugin_path,
         languages = { 'vue' },
         configNamespace = 'typescript',
       }
-      local vtsls_config = {
+      local ts_ls_config = {
+        init_options = {
+          plugins = {
+            vue_plugin,
+          },
+        },
+        filetypes = tsserver_filetypes,
+      }
+      --[[local vtsls_config = {
         settings = {
           vtsls = {
             tsserver = {
@@ -79,12 +88,18 @@ return {
           },
         },
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-      }
+      }--]]
 
       local vue_ls_config = {
         on_init = function(client)
           client.handlers['tsserver/request'] = function(_, result, context)
-            local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+            local ts_clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'ts_ls' })
+            -- local vtsls_clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+            local clients = {}
+
+            vim.list_extend(clients, ts_clients)
+            -- vim.list_extend(clients, vtsls_clients)
+
             if #clients == 0 then
               vim.notify('Could not find `vtsls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
               return
@@ -109,9 +124,11 @@ return {
         end,
       }
       -- nvim 0.11 or above
-      vim.lsp.config('vtsls', vtsls_config)
+      -- vim.lsp.config('vtsls', vtsls_config)
       vim.lsp.config('vue_ls', vue_ls_config)
-      vim.lsp.enable({'vtsls', 'vue_ls'})
+      vim.lsp.config('ts_ls', ts_ls_config)
+      -- vim.lsp.enable({'vtsls', 'vue_ls'})
+      vim.lsp.enable({'ts_ls', 'vue_ls'})
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})

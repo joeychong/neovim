@@ -1,6 +1,12 @@
 -- load lazy vim
 require("config.lazy")
 
+-- load my plugin
+local tasks = require("task-runner")
+tasks.setup({
+  mode = 'show_list'
+})
+
 -- set vim behavior
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
@@ -13,7 +19,7 @@ vim.cmd("set shiftwidth=2")
 vim.opt.number = true
 -- Do not show mode again as it already show at status bar
 vim.opt.showmode = false
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 
 -- custom key mapping
 vim.keymap.set('n', '<D-s>', ':w<CR>', { noremap = true, silent = true })
@@ -22,6 +28,7 @@ vim.keymap.set('i', '<D-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 -- vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-a>', '^', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-b>', ':bp<CR>', { noremap = true, silent = true, desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>tr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cb', ':bd<CR>', { desc = 'Close buffer', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
@@ -30,6 +37,7 @@ vim.keymap.set('n', '<leader>ce', function()
 end, { desc = 'Show diagnostic', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>fd', ':Telescope diagnostics<CR>', { desc = 'Find diagnostics', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>sh', ':syntax sync fromstart<CR>', { desc = 'Reload Syntax Highlight ', noremap = true, silent = true})
 vim.keymap.set("n", '<leader>lr', function()
   vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
   vim.cmd("edit")
@@ -52,6 +60,8 @@ vim.keymap.set("n", "<leader>tw", function()
   vim.g.codeium_enabled = not vim.g.codeium_enabled
   print("Winsurf :", vim.o.codeium_enabled and "OFF" or "ON")
 end, { desc = "Toggle Winsurf" })
+
+vim.keymap.set('n', '<D-e>', ':TaskExecutor<CR>', { noremap = true, silent = true })
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
@@ -91,7 +101,7 @@ vim.keymap.set('n','<leader>td', function()
 end, { desc = "Toggle diagnostic", noremap = true, silent = true})
 
 -- set color scheme
--- vim.cmd([[colorscheme tokyonight]])
-vim.cmd([[colorscheme catppuccin]])
+vim.cmd([[colorscheme tokyonight]])
+-- vim.cmd([[colorscheme catppuccin]])
 -- vim.cmd([[colorscheme carbonfox]])
 -- vim.cmd([[colorscheme bluloco]])
