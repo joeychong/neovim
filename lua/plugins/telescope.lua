@@ -44,7 +44,13 @@ return {
         file_ignore_patterns = {
           "node_modules",
           "%.git/",
-          ".DS_Store"
+          ".DS_Store",
+          "%.png",
+          "%.jpg",
+          "%.jpeg",
+          "%.mp4",
+          "%.webp",
+          "%.ico",
         }
       },
       pickers = {
