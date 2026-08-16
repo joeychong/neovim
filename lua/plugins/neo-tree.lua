@@ -9,6 +9,7 @@ return {
   },
   init = function()
     vim.keymap.set('n', '<C-e>', ':Neotree toggle left<CR>', { noremap = true, silent = true, desc = 'Toggle Neo-tree on the left' })
+    vim.keymap.set('n', '<M-Right>', ':Neotree toggle left<CR>', { noremap = true, silent = true, desc = 'Toggle Neo-tree on the left' })
   end,
   opts = {
     close_if_last_window = true, -- Close Neo-tree if it's the last window

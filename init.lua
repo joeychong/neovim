@@ -21,10 +21,13 @@ vim.opt.number = true
 -- Do not show mode again as it already show at status bar
 vim.opt.showmode = false
 vim.opt.relativenumber = true
+vim.api.nvim_set_hl(0, 'MatchParen', { bg = '#3e4452', fg = '#abb2bf', bold = true })
 
 -- custom key mapping
-vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
-vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<M-s>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<M-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-a>', '^', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>tr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
@@ -48,7 +51,10 @@ vim.keymap.set('i', '<C-\\>', '<Esc>%i', {
   silent = true,
   desc = "Jump between matching pairs"
 })
-
+vim.keymap.set("n", "<leader>ts", function()
+  vim.o.ignorecase = not vim.o.ignorecase
+  print("Case sensitive search:", vim.o.ignorecase and "OFF" or "ON")
+end, { desc = "Toggle case sensitive search" })
 -- enable markdown code block syntax lighlighting
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
@@ -89,17 +95,17 @@ end, { desc = "Toggle diagnostic", noremap = true, silent = true})
 
 -- set color scheme
 -- vim.cmd([[colorscheme tokyonight]])
--- vim.cmd([[colorscheme tokyonight-storm]])
+vim.cmd([[colorscheme tokyonight-storm]])
 -- vim.cmd([[colorscheme catppuccin]])
 
-require("bluloco").setup({
+--[[require("bluloco").setup({
   style = "dark",               -- "auto" | "dark" | "light"
   transparent = false,
   italics = true,
   terminal = vim.fn.has("gui_running") == 1, -- bluoco colors are enabled in gui terminals per default.
   guicursor = true,
   rainbow_headings = false,     -- if you want different colored headings for each heading level
-})
+})]]
 
 vim.opt.termguicolors = true
 vim.cmd('colorscheme bluloco')
