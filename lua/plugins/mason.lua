@@ -7,26 +7,10 @@ return {
   {
     --"williamboman/mason-lspconfig.nvim",
     "mason-org/mason-lspconfig.nvim",
-    config = function()
-      require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'vue_ls' }, -- 'ts_ls', 
-        automatic_installation = true,
-        -- Default handler for all installed servers
-        handlers = {
-          function(server_name)
-            require('lspconfig')[server_name].setup({
-              --on_attach = function(client, bufnr)
-                -- Keybindings or custom LSP behavior can go here
-              --end,
-              capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add autocomplete support if using nvim-cmp
-            })
-            --[[vim.lsp.config(server_name, {
-              capabilities = require('cmp_nvim_lsp').default_capabilities(), -- Add autocomplete support if using nvim-cmp
-            })--]]
-          end,
-        }
-      })
-    end,
+    opts = {
+      ensure_installed = { "lua_ls", "vue_ls", "vtsls" },
+      automatic_enable = false,
+    },
     dependencies = {
         "neovim/nvim-lspconfig",
         "hrsh7th/cmp-nvim-lsp", -- Ensure this is loaded before mason-lspconfig config runs if it's used in capabilities
@@ -35,8 +19,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      --local lspconfig = require("lspconfig")
-      --lspconfig.lua_ls.setup({})
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local vue_typescript_plugin_path = vim.fn.stdpath('data')
         .. '/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
       local vue_plugin = {
@@ -73,6 +56,7 @@ return {
             end
             local ts_client = clients[1]
 
+            local unpack = table.unpack or unpack
             local param = unpack(result)
             local id, command, payload = unpack(param)
             ts_client:exec_cmd({
@@ -91,33 +75,14 @@ return {
         end,
 
       }
-      -- nvim 0.11 or above
-      vim.lsp.config('vtsls', vtsls_config)
-
-      vim.lsp.config('vue_ls', vue_ls_config)
-      vim.lsp.enable({'vtsls', 'vue_ls'})
-      --[[vim.lsp.config('lua_ls', {})
-      vim.lsp.config('vue_ls', {})
-      vim.lsp.config('ts_ls', {
-        init_options = {
-          plugins = {
-            {
-              name = "@vue/typescript-plugin",
-              location = vue_typescript_plugin_path,
-              languages = { "vue" },
-            },
-          },
-        },
-        filetypes = {
-          "javascript",
-          "typescript",
-          "javascriptreact",
-          "typescriptreact",
-          "vue",
-        },
-        -- capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        single_file_support = false,
-      })--]]
+      vim.lsp.config("lua_ls", { capabilities = capabilities })
+      vim.lsp.config("vtsls", vim.tbl_deep_extend("force", vtsls_config, {
+        capabilities = capabilities,
+      }))
+      vim.lsp.config("vue_ls", vim.tbl_deep_extend("force", vue_ls_config, {
+        capabilities = capabilities,
+      }))
+      vim.lsp.enable({ "lua_ls", "vtsls", "vue_ls" })
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})

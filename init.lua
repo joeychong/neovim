@@ -35,7 +35,7 @@ vim.keymap.set('n', '<leader>ce', function()
 end, { desc = 'Show diagnostic', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>fd', ':Telescope diagnostics<CR>', { desc = 'Find diagnostics', noremap = true, silent = true})
 vim.keymap.set("n", '<leader>lr', function()
-  vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
+  vim.lsp.stop_client(vim.lsp.get_clients({ bufnr = 0 }), true)
   vim.cmd("edit")
 end, { desc = "LSP Restart for current buffer" })
 vim.keymap.set({'n', 'v', 'o'}, '<C-\\>', '%', {
@@ -71,8 +71,8 @@ vim.opt.clipboard = "unnamedplus"
 
 -- enable load local neovim config
 local local_config = vim.fn.getcwd() .. '/.nvim.lua'
-if vim.loop.fs_stat(local_config) then
-  vim.cmd('luafile ' .. local_config)
+if vim.uv.fs_stat(local_config) then
+  vim.cmd('luafile ' .. vim.fn.fnameescape(local_config))
 end
 
 -- set inline diagnostic

@@ -1,18 +1,19 @@
 local M = {}
 
+local function make_scratch_buffer(items)
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].readonly = true
+  vim.bo[buf].buftype = "nofile"
+  vim.bo[buf].swapfile = false
+  vim.bo[buf].buflisted = false
+  return buf
+end
+
 local function show_list(items, on_select)
   -- Create a scratch buffer
-  local buf = vim.api.nvim_create_buf(false, true)
-
-  -- Put items into the buffer
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
-
-  -- make the buffer uneditable
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
-  vim.api.nvim_buf_set_option(buf, "readonly", true)
-  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
-  vim.api.nvim_buf_set_option(buf, "buflisted", false)
+  local buf = make_scratch_buffer(items)
 
   -- Window size
   local width = 40
@@ -60,7 +61,7 @@ local function show_list(items, on_select)
 end
 
 local function read_json(filename)
-  local cwd = vim.loop.cwd()           -- where you started nvim
+  local cwd = vim.uv.cwd()           -- where you started nvim
   local path = cwd .. "/" .. filename
 
   --local file = assert(io.open(path, "r"))
@@ -78,18 +79,7 @@ end
 
 local function popup_menu(items, on_select)
 
-  local buf = vim.api.nvim_create_buf(false, true)
-
-  -- write items
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
-
-
-  -- make menu read-only
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
-  vim.api.nvim_buf_set_option(buf, "readonly", true)
-  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
-  vim.api.nvim_buf_set_option(buf, "buflisted", false)
+  local buf = make_scratch_buffer(items)
 
   -- floating window
   local win = vim.api.nvim_open_win(buf, true, {
@@ -110,11 +100,16 @@ local function popup_menu(items, on_select)
   -- highlight group
   vim.api.nvim_set_hl(0, "PopupMenuSel", { link = "Visual" })
 
+  local namespace = vim.api.nvim_create_namespace("task-runner-popup-menu")
+
   local function update_highlight()
     -- clear previous
-    vim.api.nvim_buf_clear_namespace(buf, 0, 0, -1)
+    vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
     -- set highlight on current line
-    vim.api.nvim_buf_add_highlight(buf, 0, "PopupMenuSel", current - 1, 0, -1)
+    vim.api.nvim_buf_set_extmark(buf, namespace, current - 1, 0, {
+      end_col = #items[current],
+      hl_group = "PopupMenuSel",
+    })
   end
 
   update_highlight()
