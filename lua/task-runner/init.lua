@@ -1,5 +1,12 @@
 local M = {}
 
+local function configure_scratch_buffer(buf)
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].readonly = true
+  vim.bo[buf].buftype = "nofile"
+  vim.bo[buf].swapfile = false
+end
+
 local function show_list(items, on_select)
   -- Create a scratch buffer
   local buf = vim.api.nvim_create_buf(false, true)
@@ -8,11 +15,7 @@ local function show_list(items, on_select)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
 
   -- make the buffer uneditable
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
-  vim.api.nvim_buf_set_option(buf, "readonly", true)
-  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
-  vim.api.nvim_buf_set_option(buf, "buflisted", false)
+  configure_scratch_buffer(buf)
 
   -- Window size
   local width = 50
@@ -63,7 +66,7 @@ local function show_list(items, on_select)
 end
 
 local function read_json(filename)
-  local cwd = vim.loop.cwd()           -- where you started nvim
+  local cwd = vim.uv.cwd()           -- where you started nvim
   local path = cwd .. "/" .. filename
 
   --local file = assert(io.open(path, "r"))
@@ -88,11 +91,7 @@ local function popup_menu(items, on_select)
 
 
   -- make menu read-only
-  vim.api.nvim_buf_set_option(buf, "modifiable", false)
-  vim.api.nvim_buf_set_option(buf, "readonly", true)
-  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
-  vim.api.nvim_buf_set_option(buf, "buflisted", false)
+  configure_scratch_buffer(buf)
 
   -- floating window
   local win = vim.api.nvim_open_win(buf, true, {

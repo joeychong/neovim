@@ -39,7 +39,9 @@ vim.keymap.set('n', '<leader>fd', ':Telescope diagnostics<CR>', { desc = 'Find d
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>sh', ':syntax sync fromstart<CR>', { desc = 'Reload Syntax Highlight ', noremap = true, silent = true})
 vim.keymap.set("n", '<leader>lr', function()
-  vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    client:stop(true)
+  end
   vim.cmd("edit")
 end, { desc = "LSP Restart for current buffer" })
 vim.keymap.set({'n', 'v', 'o'}, '<C-\\>', '%', {
@@ -58,7 +60,7 @@ vim.keymap.set("n", "<leader>ts", function()
 end, { desc = "Toggle case sensitive search" })
 vim.keymap.set("n", "<leader>tw", function()
   vim.g.codeium_enabled = not vim.g.codeium_enabled
-  print("Winsurf :", vim.o.codeium_enabled and "OFF" or "ON")
+  print("Winsurf :", vim.g.codeium_enabled and "ON" or "OFF")
 end, { desc = "Toggle Winsurf" })
 
 vim.keymap.set('n', '<D-e>', ':TaskExecutor<CR>', { noremap = true, silent = true })
@@ -84,7 +86,7 @@ vim.opt.clipboard = "unnamedplus"
 
 -- enable load local neovim config
 local local_config = vim.fn.getcwd() .. '/.nvim.lua'
-if vim.loop.fs_stat(local_config) then
+if vim.uv.fs_stat(local_config) then
   vim.cmd('luafile ' .. local_config)
 end
 
