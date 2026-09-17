@@ -32,6 +32,28 @@ vim.keymap.set('n', '<C-b>', ':bp<CR>', { noremap = true, silent = true, desc = 
 vim.keymap.set('n', '<leader>tr', ':set relativenumber!<CR>', { desc = 'Toggle relative number', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cb', ':bd<CR>', { desc = 'Close buffer', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear select', noremap = true, silent = true})
+vim.keymap.set('n', '<leader>cr', function()
+  local view = vim.fn.winsaveview()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local changed = false
+
+  for index, line in ipairs(lines) do
+    local cleaned_line, replacements = line:gsub('\r', '')
+    if replacements > 0 then
+      lines[index] = cleaned_line
+      changed = true
+    end
+  end
+
+  if changed then
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+    vim.notify('Removed carriage returns from buffer')
+  else
+    vim.notify('No carriage returns found in buffer')
+  end
+
+  vim.fn.winrestview(view)
+end, { desc = 'Remove carriage returns', noremap = true, silent = true})
 vim.keymap.set('n', '<leader>ce', function()
   vim.diagnostic.open_float(nil, { border = "rounded"})
 end, { desc = 'Show diagnostic', noremap = true, silent = true})
