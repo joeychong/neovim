@@ -93,7 +93,7 @@ return {
       vim.lsp.config('vue_ls', {})
       vim.lsp.config('ts_ls', ts_ls_config)
       -- vim.lsp.enable({'vtsls', 'vue_ls'})
-      vim.lsp.enable({'ts_ls', 'vue_ls'})
+      vim.lsp.enable({'ts_ls', 'vue_ls', 'oxlint'})
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
