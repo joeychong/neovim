@@ -9,7 +9,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'ts_ls', 'vue_ls' },
+        ensure_installed = { 'lua_ls', 'ts_ls', 'vue_ls', 'oxlint' },
         -- Default handler for all installed servers
         handlers = {
           function(server_name)
@@ -93,7 +93,8 @@ return {
       vim.lsp.config('vue_ls', {})
       vim.lsp.config('ts_ls', ts_ls_config)
       -- vim.lsp.enable({'vtsls', 'vue_ls'})
-      vim.lsp.enable({'ts_ls', 'vue_ls', 'oxlint'})
+      -- Mason enables oxlint after its executable has been installed.
+      vim.lsp.enable({'ts_ls', 'vue_ls'})
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
