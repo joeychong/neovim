@@ -13,6 +13,7 @@ return {
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]iff' },
         { '<leader>f', group = '[F]uzzy Search' },
+        { '<leader>g', group = '[G]it' },
         { '<leader>l', group = '[L]anguage Server' },
         { '<leader>s', group = '[S]yntax' },
         { '<leader>t', group = '[T]oggles' },
